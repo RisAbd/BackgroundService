@@ -1,6 +1,5 @@
 package com.developer.abdulah.backgroundservice.services;
 
-import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,15 +7,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.developer.abdulah.backgroundservice.MainActivity;
 import com.developer.abdulah.backgroundservice.db.Database;
@@ -34,7 +29,7 @@ public class BackgroundService extends Service implements Runnable {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return new AIBinder();
+        return null;
     }
 
     @Override
@@ -42,17 +37,16 @@ public class BackgroundService extends Service implements Runnable {
 //        if (!th.isAlive()) {
 //            th.start();
 //        }
-        Log.e("BackgroundService", "onStartCommand: "+flags);
         return START_STICKY;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("BackgroundService", "onCreate");
-        ContextCompat.startForegroundService(getApplicationContext(), new Intent(getApplicationContext(), BackgroundService.class));
-        startForeground(1234, notification());
+//        ContextCompat.startForegroundService(getApplicationContext(), new Intent(getApplicationContext(), BackgroundService.class));
+//        startForeground(1234, notification());
 //        th = new Thread(this);
+
     }
 
     @Override
@@ -81,6 +75,7 @@ public class BackgroundService extends Service implements Runnable {
         String channelId = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? createNotificationChannel(notificationManager) : "my_service_channelid";
 
         NotificationCompat.Builder b = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(android.R.drawable.ic_media_play)
                 .setOngoing(true)
                 .setContentTitle(t.getName())
                 .setContentText(t.getStatus());
@@ -136,6 +131,3 @@ public class BackgroundService extends Service implements Runnable {
     }
 }
 
-class AIBinder extends Binder {
-
-}

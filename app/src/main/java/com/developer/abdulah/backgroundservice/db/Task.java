@@ -2,7 +2,6 @@ package com.developer.abdulah.backgroundservice.db;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 

@@ -1,14 +1,9 @@
 package com.developer.abdulah.backgroundservice;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,23 +35,23 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         refreshLayout = findViewById(R.id.refreshTasksLayout);
         refreshLayout.setOnRefreshListener(this);
-        startService();
+//        startService();
     }
 
     void startService() {
-        bindService(new Intent(this, BackgroundService.class), new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.e("MainActivity", "onServiceConnected: ");
-
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        }, Context.BIND_AUTO_CREATE);
-//        startService();
+        Intent intent = new Intent(this, BackgroundService.class);
+//        bindService(intent, new ServiceConnection() {
+//            @Override
+//            public void onServiceConnected(ComponentName name, IBinder service) {
+//
+//            }
+//
+//            @Override
+//            public void onServiceDisconnected(ComponentName name) {
+//
+//            }
+//        }, Context.BIND_AUTO_CREATE);
+        startService(intent);
     }
     void stopService() {
         stopService(new Intent(this, BackgroundService.class));
